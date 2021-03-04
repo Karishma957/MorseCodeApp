@@ -105,7 +105,7 @@ class NormalHomePage extends StatelessWidget {
                   return InkWell(
                     onTap: (){print(messages[index]['sender']);},
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical:10.0,horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(vertical:13.0,horizontal: 16.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
