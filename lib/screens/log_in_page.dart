@@ -1,11 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../services/frbsAuth.dart';
 import './sign_up_page.dart';
-import 'normal_home_page.dart';
-import 'special_home_page.dart';
 
 class LogInPage extends StatefulWidget {
   @override
@@ -15,8 +10,8 @@ class LogInPage extends StatefulWidget {
 class _LogInPageState extends State<LogInPage> {
   String email='';
   String password='';
-  TextEditingController emailController=TextEditingController();
-  TextEditingController passwordController=TextEditingController();
+  TextEditingController emailController;
+  TextEditingController passwordController;
   String error='';
   bool hidePassword=true;
   @override
@@ -39,20 +34,24 @@ class _LogInPageState extends State<LogInPage> {
                 mainAxisAlignment:MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                      "LOG IN",
-                      style: Theme.of(context).textTheme.headline6
+                    "LOG IN",
+                    style: Theme.of(context).textTheme.headline6
                   ),
                   SizedBox(height:50,),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: TextFormField(
                       controller: emailController,
-                      keyboardType: TextInputType.emailAddress,
+                      onChanged: (String val){
+                        setState(() {
+                          email=val;
+                        });
+                      },
                       style: Theme.of(context).textTheme.bodyText1,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(12),
                         prefixIcon: Icon(
-                          Icons.mail,
+                          Icons.phone,
                           color: Colors.white70,
                         ),
                         border: InputBorder.none,
@@ -76,6 +75,12 @@ class _LogInPageState extends State<LogInPage> {
                     child: TextFormField(
                       controller: passwordController,
                       obscureText: hidePassword,
+                      onChanged: (val) {
+                        setState(() {
+                          password = val;
+                        });
+                      },
+                      autocorrect: true,
                       style: Theme.of(context).textTheme.bodyText1,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(12),
@@ -111,38 +116,22 @@ class _LogInPageState extends State<LogInPage> {
                     ),
                   ),
                   Container(height:50,child: Center(child: Text(error,style: TextStyle(color: Colors.red,fontSize: 14),))),
-                  // ignore: deprecated_member_use
                   RaisedButton(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
                     padding: EdgeInsets.symmetric(vertical: 5, horizontal: 30),
                     color: Theme.of(context).buttonColor,
-                    onPressed: () async{
-                      email=emailController.text.toString().trim();
-                      password=passwordController.text.toString().trim();
+                    onPressed: () {
                       if(email.length==0 || password.length==0){
                         setState(() {
                           error='Enter valid credentials';
                         });
                       }
                       else{
-                        try{
-                          User x=await FRBSAuth.loginEmail(email, password);
-                          setState(() {
-                            if(x!=null){
-                              Navigator.pushReplacement(context,
-                                MaterialPageRoute(
-                                    builder: (context) => FRBSAuth.auth.currentUser.displayName.endsWith("2")?
-                                    NormalHomePage():SpecialHomePage()),
-                              );
-                            }
-                          });
-                        }catch(e){
-                          setState(() {
-                            error=e.toString().split("]")[1];
-                          });
-                        }
+                        setState(() {
+                          error='';
+                        });
                       }
                       print(email+password);
                     },
@@ -151,7 +140,7 @@ class _LogInPageState extends State<LogInPage> {
                       style: Theme.of(context).textTheme.bodyText1,),
                   ),
                   SizedBox(height: 10),
-                  TextButton(
+                  FlatButton(
                       child: Text(
                         'Register',
                         style: TextStyle(
