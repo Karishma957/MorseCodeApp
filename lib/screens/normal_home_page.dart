@@ -7,26 +7,26 @@ class NormalHomePage extends StatelessWidget {
   messages
 
   = [
-  {
-  'sender': 'name lastName 1',
-  'lastMessage': 'This is the last message sent to this contact by this pnone number'
-  },
-  {
-  'sender': 'name lastName 2',
-  'lastMessage': 'This is the last message sent to this contact b  aaaaaaaaaaaaaaaaaaaaa'
-  },
-  {
-  'sender': 'name lastName 3',
-  'lastMessage': 'This is the last message sent to this contact  bbbbbbbbbbbbbbbb'
-  },
-  {
-  'sender': 'name lastName 4',
-  'lastMessage': 'This is the last message sent to this contact ccccccccccc'
-  },
-  {
-  'sender': 'name lastName 5',
-  'lastMessage': 'This is the last message sent to this contact cccccccccccccc'
-  },
+    {
+      'sender': 'name lastName 1',
+      'lastMessage': 'This is the last message sent to this contact by this pnone number'
+    },
+    {
+      'sender': 'name lastName 2',
+      'lastMessage': 'This is the last message sent to this contact b  aaaaaaaaaaaaaaaaaaaaa'
+    },
+    {
+      'sender': 'name lastName 3',
+      'lastMessage': 'This is the last message sent to this contact  bbbbbbbbbbbbbbbb'
+    },
+    {
+      'sender': 'name lastName 4',
+      'lastMessage': 'This is the last message sent to this contact ccccccccccc'
+    },
+    {
+      'sender': 'name lastName 5',
+      'lastMessage': 'This is the last message sent to this contact cccccccccccccc'
+    },
     {
       'sender': 'name lastName 6',
       'lastMessage': 'This is the last message sent to this contact cccccccccccccc'

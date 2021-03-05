@@ -138,7 +138,7 @@ class _SpecialHomePageState extends State<SpecialHomePage> {
           else {
             letters.add(messageFormed);
             word.add(letters);
-            word.add(['n']);
+            word.add(['\n']);
             letters=[];
             print('newline');
           }
