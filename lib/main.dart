@@ -1,11 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:pasc_event_project/screens/sign_up_page.dart';
+//import 'package:adaptive_theme/adaptive_theme.dart';
+import './screens/sign_up_page.dart';
 import './screens/normal_home_page.dart';
 import './screens/special_home_page.dart';
 import './screens/log_in_page.dart';
 
-void main() {
+Future<void> main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -14,43 +17,43 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(
-          brightness: Brightness.dark,
-          primarySwatch: Colors.blue,
-          backgroundColor: Color.fromRGBO(48, 48, 72, 1),
-          iconTheme: IconThemeData(
-            color: Color.fromRGBO(72, 96, 144, 1),
-          ),
-          canvasColor: Color.fromRGBO(48, 48, 72, 1),
-          buttonColor: Colors.indigo,
-          appBarTheme: AppBarTheme(
-              color: Colors.transparent,
-              textTheme: TextTheme(
-                headline6: TextStyle(
-                    fontSize: 26.0,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    letterSpacing: 1.5),
-              )),
-          fontFamily: 'OpenSans',
-          textTheme: TextTheme(
-            bodyText1: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w600,
-                color: Colors.white60),
-            headline6: TextStyle(
-                fontSize: 28.0,
-                fontWeight: FontWeight.w700,
-                color: Colors.white70,
-                letterSpacing: 1.5),
-            bodyText2: TextStyle(fontSize: 18.0, color: Colors.white54),
-            caption: TextStyle(fontSize: 18.0, color: Colors.white60),
-          ),
-          accentColor: Color.fromRGBO(24, 48, 96, 1),
-          primaryColor: Color.fromRGBO(0, 24, 48, 1),
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.blue,
+        backgroundColor: Color.fromRGBO(48, 48, 72, 1),
+        iconTheme: IconThemeData(
+          color: Color.fromRGBO(72, 96, 144, 1),
         ),
-        debugShowCheckedModeBanner: false,
-        home: SpecialHomePage(),//NormalHomePage(),//SignUpPage(),
+        canvasColor: Color.fromRGBO(48, 48, 72, 1),
+        buttonColor: Colors.indigo,
+        appBarTheme: AppBarTheme(
+            color: Colors.transparent,
+            textTheme: TextTheme(
+              headline6: TextStyle(
+                  fontSize: 26.0,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                  letterSpacing: 1.5),
+            )),
+        fontFamily: 'OpenSans',
+        textTheme: TextTheme(
+          bodyText1: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.w600,
+              color: Colors.white60),
+          headline6: TextStyle(
+              fontSize: 28.0,
+              fontWeight: FontWeight.w700,
+              color: Colors.white70,
+              letterSpacing: 1.5),
+          bodyText2: TextStyle(fontSize: 18.0, color: Colors.white54),
+          caption: TextStyle(fontSize: 18.0, color: Colors.white60),
+        ),
+        accentColor: Color.fromRGBO(24, 48, 96, 1),
+        primaryColor: Color.fromRGBO(0, 24, 48, 1),
+      ),
+      debugShowCheckedModeBanner: false,
+      home: SignUpPage(),//SpecialHomePage(),//NormalHomePage(),
     );
   }
 }
