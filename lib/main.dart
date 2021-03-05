@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-//import 'package:adaptive_theme/adaptive_theme.dart';
 import './screens/sign_up_page.dart';
 import './screens/normal_home_page.dart';
 import './screens/special_home_page.dart';
@@ -57,7 +56,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 /*AdaptiveTheme(
       light: ThemeData(
         brightness: Brightness.light,
@@ -127,9 +125,4 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-}
-* #486090	rgb (72, 96, 144)	Last Light Blue
-#183060	rgb (24, 48, 96)	Ending Navy Blue
-#001830	rgb (0, 24, 48)	Squid Ink Powder
-#303048	rgb (48, 48, 72)	Blue Regal
-* */
+} */

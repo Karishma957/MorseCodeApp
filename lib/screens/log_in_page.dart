@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../frbsAuth.dart';
+import '../services/frbsAuth.dart';
 import './sign_up_page.dart';
 import 'normal_home_page.dart';
 import 'special_home_page.dart';
@@ -151,7 +151,7 @@ class _LogInPageState extends State<LogInPage> {
                       style: Theme.of(context).textTheme.bodyText1,),
                   ),
                   SizedBox(height: 10),
-                  FlatButton(
+                  TextButton(
                       child: Text(
                         'Register',
                         style: TextStyle(
