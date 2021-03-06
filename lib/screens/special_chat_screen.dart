@@ -9,7 +9,7 @@ class SpecialChatScreen extends StatefulWidget {
 }
 
 class _SpecialChatScreenState extends State<SpecialChatScreen> {
-  String testMessage='I am here';
+  String testMessage = 'I am here';
   String messageFormed = '';
   String stringFormed = '';
   double initialX = 0.0;
@@ -18,6 +18,12 @@ class _SpecialChatScreenState extends State<SpecialChatScreen> {
   double distanceY = 0.0;
   Timer timer;
   int timePassed = 0;
+
+  Map lastMessage = {
+    'sender': 'not me',
+    'data': 'hello there. how are you, long time no see i have been looking for you',
+    'time': DateTime.now().toString()
+  };
 
   void startTimer() {
     const oneSec = const Duration(milliseconds: 800);
@@ -38,31 +44,29 @@ class _SpecialChatScreenState extends State<SpecialChatScreen> {
     timePassed = 0;
   }
 
-  void vibrateMorse(pattern){
+  void vibrateMorse(pattern) {
     Vibration.vibrate(
       pattern: pattern,
     );
   }
 
-  void executeVibrate(List<String> mList){
-    List<int> vibrationPattern=[];
+  void executeVibrate(List<String> mList) {
+    List<int> vibrationPattern = [];
     print(mList);
-    int pause=0;
+    int pause = 0;
     for (int j = 0; j < mList.length; j++) {
-      pause+=600;
+      pause += 600;
       for (int i = 0; i < mList[j].length; i++) {
-        if(mList[j][i]=='.') {
+        if (mList[j][i] == '.') {
           vibrationPattern.add(pause);
           vibrationPattern.add(400);
-          pause=600;
-        }
-        else if(mList[j][i]=='-'){
+          pause = 600;
+        } else if (mList[j][i] == '-') {
           vibrationPattern.add(pause);
           vibrationPattern.add(800);
-          pause=600;
-        }
-        else{
-          pause=2400;
+          pause = 600;
+        } else {
+          pause = 2400;
         }
       }
     }
@@ -191,6 +195,52 @@ class _SpecialChatScreenState extends State<SpecialChatScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              Container(
+                margin: lastMessage['sender']=='me'
+                    ? EdgeInsets.only(
+                        top: 8.0,
+                        bottom: 8.0,
+                        left: 80.0,
+                      )
+                    : EdgeInsets.only(
+                        top: 8.0,
+                        bottom: 8.0,
+                      ),
+                padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
+                width: MediaQuery.of(context).size.width * 0.75,
+                decoration: BoxDecoration(
+                  color:
+                  Colors.blue[600],
+                  borderRadius: lastMessage['sender']=='me'
+                      ? BorderRadius.only(
+                          topLeft: Radius.circular(15.0),
+                          bottomLeft: Radius.circular(15.0),
+                        )
+                      : BorderRadius.only(
+                          topRight: Radius.circular(15.0),
+                          bottomRight: Radius.circular(15.0),
+                        ),
+                ),
+
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(height: 8.0),
+                    Text(
+                      lastMessage['data'],
+                      style: Theme.of(context).textTheme.bodyText1
+                    ),
+                    SizedBox(height: 8,),
+                    Text(
+                        lastMessage['time'],
+                        style: TextStyle(
+                          fontSize: 8,
+                          color: Colors.white54
+                        )
+                    ),
+                  ],
+                ),
+              ),
               Text(
                 messageFormed,
                 style: Theme.of(context).textTheme.headline6,
@@ -201,12 +251,7 @@ class _SpecialChatScreenState extends State<SpecialChatScreen> {
                 style: Theme.of(context).textTheme.headline6,
                 overflow: TextOverflow.clip,
               ),
-              TextButton(
-                  onPressed: () {
-                    executeVibrate(MorseCode.convertStringToMorse(testMessage.toUpperCase()));
-                  },
-                  child: Text('click'))
-            ],
+      ]
           ),
         ),
       ),
