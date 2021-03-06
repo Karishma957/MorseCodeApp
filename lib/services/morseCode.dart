@@ -86,14 +86,11 @@ class MorseCode {
     }
   }
 
-  static List convertStringToMorse(String s) {
-    List convertedString = [];
-    List str = s.split('');
-    print(str);
+  static List<String> convertStringToMorse(String s) {
+    List<String> convertedString = [];
+    List<String> str = s.split('');
     for (int i = 0; i < str.length; i++) {
-      print(str[i]);
       if (stringToMorseList.containsKey(str[i])) {
-        print(str[i]);
         convertedString.add(stringToMorseList[str[i]]);
       } else if (str[i] == ' ') {
         convertedString.add(' ');

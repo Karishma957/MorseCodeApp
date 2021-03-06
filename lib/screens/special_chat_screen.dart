@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import '../services/morseCode.dart';
+import 'package:vibration/vibration.dart';
 
 class SpecialChatScreen extends StatefulWidget {
   @override
@@ -8,6 +9,7 @@ class SpecialChatScreen extends StatefulWidget {
 }
 
 class _SpecialChatScreenState extends State<SpecialChatScreen> {
+  String testMessage='I am here';
   String messageFormed = '';
   String stringFormed = '';
   double initialX = 0.0;
@@ -34,6 +36,38 @@ class _SpecialChatScreenState extends State<SpecialChatScreen> {
 
   void resetTimer() {
     timePassed = 0;
+  }
+
+  void vibrateMorse(pattern){
+    Vibration.vibrate(
+      pattern: pattern,
+    );
+  }
+
+  void executeVibrate(List<String> mList){
+    List<int> vibrationPattern=[];
+    print(mList);
+    int pause=0;
+    for (int j = 0; j < mList.length; j++) {
+      pause+=600;
+      for (int i = 0; i < mList[j].length; i++) {
+        if(mList[j][i]=='.') {
+          vibrationPattern.add(pause);
+          vibrationPattern.add(400);
+          pause=600;
+        }
+        else if(mList[j][i]=='-'){
+          vibrationPattern.add(pause);
+          vibrationPattern.add(800);
+          pause=600;
+        }
+        else{
+          pause=2400;
+        }
+      }
+    }
+    print(vibrationPattern);
+    vibrateMorse(vibrationPattern);
   }
 
   @override
@@ -64,7 +98,7 @@ class _SpecialChatScreenState extends State<SpecialChatScreen> {
         //time stop,time compare,time reset, and append letter
         onLongPressStart: (_) {
           if (timer != null) timer.cancel();
-          if (timePassed >=2) {
+          if (timePassed >= 2) {
             setState(() {
               stringFormed += MorseCode.convertMorseToString(messageFormed);
               messageFormed = '';
@@ -167,6 +201,11 @@ class _SpecialChatScreenState extends State<SpecialChatScreen> {
                 style: Theme.of(context).textTheme.headline6,
                 overflow: TextOverflow.clip,
               ),
+              TextButton(
+                  onPressed: () {
+                    executeVibrate(MorseCode.convertStringToMorse(testMessage.toUpperCase()));
+                  },
+                  child: Text('click'))
             ],
           ),
         ),
