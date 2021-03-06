@@ -1,4 +1,4 @@
-# pasc_event_project
+# Morse Code to Text
 
 A new Flutter application.
 
