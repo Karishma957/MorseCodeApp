@@ -9,8 +9,8 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="pasc_event_project"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Morse Chat"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

@@ -106,7 +106,7 @@ class HomePage extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
-                                SpecialChatScreen();
+                            SpecialChatScreen();
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
