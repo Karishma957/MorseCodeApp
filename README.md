@@ -14,4 +14,3 @@ The standard interface allows users to type to send messages to the deaf-blind.
 # App UI
 <img src="outputImages/op1.jpeg" width="240" height="500">       <img src="outputImages/op2.jpeg" width="240" height="500">   
 <img src="outputImages/op3.jpeg" width="240" height="500">       <img src="outputImages/op4.jpeg" width="240" height="500">   
-<img src="outputImages/op5.jpeg" width="240" height="500">       <img src="outputImages/op6.jpeg" width="240" height="500">   
