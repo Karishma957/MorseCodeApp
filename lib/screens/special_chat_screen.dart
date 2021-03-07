@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import '../services/morseCode.dart';
-import 'package:vibration/vibration.dart';
 
 class SpecialChatScreen extends StatefulWidget {
   @override
@@ -10,6 +9,7 @@ class SpecialChatScreen extends StatefulWidget {
 
 class _SpecialChatScreenState extends State<SpecialChatScreen> {
   String testMessage = 'I am here';
+  String lastMessage = '';
   String messageFormed = '';
   String stringFormed = '';
   double initialX = 0.0;
@@ -18,12 +18,6 @@ class _SpecialChatScreenState extends State<SpecialChatScreen> {
   double distanceY = 0.0;
   Timer timer;
   int timePassed = 0;
-
-  Map lastMessage = {
-    'sender': 'not me',
-    'data': 'hello there. how are you, long time no see i have been looking for you',
-    'time': DateTime.now().toString()
-  };
 
   void startTimer() {
     const oneSec = const Duration(milliseconds: 800);
@@ -44,45 +38,21 @@ class _SpecialChatScreenState extends State<SpecialChatScreen> {
     timePassed = 0;
   }
 
-  void vibrateMorse(pattern) {
-    Vibration.vibrate(
-      pattern: pattern,
-    );
-  }
 
-  void executeVibrate(List<String> mList) {
-    List<int> vibrationPattern = [];
-    print(mList);
-    int pause = 0;
-    for (int j = 0; j < mList.length; j++) {
-      pause += 600;
-      for (int i = 0; i < mList[j].length; i++) {
-        if (mList[j][i] == '.') {
-          vibrationPattern.add(pause);
-          vibrationPattern.add(400);
-          pause = 600;
-        } else if (mList[j][i] == '-') {
-          vibrationPattern.add(pause);
-          vibrationPattern.add(800);
-          pause = 600;
-        } else {
-          pause = 2400;
-        }
-      }
-    }
-    print(vibrationPattern);
-    vibrateMorse(vibrationPattern);
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
+      appBar: AppBar(
+        elevation: 0,
+        title: Text('Morse to Text',),
+      ),
       body: GestureDetector(
         //time stop,time compare,time reset, and append letter
         onTapDown: (_) {
           if (timer != null) timer.cancel();
-          if (timePassed >= 2) {
+          if (timePassed >= 1) {
             setState(() {
               if (messageFormed != '') {
                 stringFormed += MorseCode.convertMorseToString(messageFormed);
@@ -102,7 +72,7 @@ class _SpecialChatScreenState extends State<SpecialChatScreen> {
         //time stop,time compare,time reset, and append letter
         onLongPressStart: (_) {
           if (timer != null) timer.cancel();
-          if (timePassed >= 2) {
+          if (timePassed >= 1) {
             setState(() {
               stringFormed += MorseCode.convertMorseToString(messageFormed);
               messageFormed = '';
@@ -134,7 +104,6 @@ class _SpecialChatScreenState extends State<SpecialChatScreen> {
             setState(() {
               messageFormed = '';
             });
-            print('erased');
           }
           //right swipe
           //timer stop, reset
@@ -145,7 +114,6 @@ class _SpecialChatScreenState extends State<SpecialChatScreen> {
               stringFormed += ' ';
               messageFormed = '';
             });
-            print('space');
           }
           resetTimer();
         },
@@ -165,10 +133,10 @@ class _SpecialChatScreenState extends State<SpecialChatScreen> {
           if (distanceY.isNegative) {
             setState(() {
               stringFormed += MorseCode.convertMorseToString(messageFormed);
+              lastMessage=stringFormed;
               messageFormed = '';
+              stringFormed='';
             });
-            print(stringFormed);
-            print('sent');
           }
           //downward swipe
           //timer stop, reset
@@ -179,9 +147,7 @@ class _SpecialChatScreenState extends State<SpecialChatScreen> {
               stringFormed += '\n';
               messageFormed = '';
             });
-            print('newline');
           }
-
           distanceX = 0;
           distanceY = 0;
           resetTimer();
@@ -189,70 +155,42 @@ class _SpecialChatScreenState extends State<SpecialChatScreen> {
         behavior: HitTestBehavior.opaque,
         child: Container(
           height: MediaQuery.of(context).size.height -
-              MediaQuery.of(context).padding.top,
+              MediaQuery.of(context).padding.top-100,
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                margin: lastMessage['sender']=='me'
-                    ? EdgeInsets.only(
-                        top: 8.0,
-                        bottom: 8.0,
-                        left: 80.0,
-                      )
-                    : EdgeInsets.only(
-                        top: 8.0,
-                        bottom: 8.0,
-                      ),
-                padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
-                width: MediaQuery.of(context).size.width * 0.75,
-                decoration: BoxDecoration(
-                  color:
-                  Colors.blue[600],
-                  borderRadius: lastMessage['sender']=='me'
-                      ? BorderRadius.only(
-                          topLeft: Radius.circular(15.0),
-                          bottomLeft: Radius.circular(15.0),
-                        )
-                      : BorderRadius.only(
-                          topRight: Radius.circular(15.0),
-                          bottomRight: Radius.circular(15.0),
-                        ),
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                lastMessage.length==0?Container():Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
+                  width: MediaQuery.of(context).size.width * 0.75,
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).accentColor,
+                      borderRadius: BorderRadius.circular(8)),
+                  child: Column(
+                    children: [
+                      Text('Last message sent :',style: Theme.of(context).textTheme.caption,),
+                      SizedBox(height: 5,),
+                      Text(lastMessage,
+                          style: Theme.of(context).textTheme.bodyText1),
+                    ],
+                  ),
                 ),
-
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(height: 8.0),
-                    Text(
-                      lastMessage['data'],
-                      style: Theme.of(context).textTheme.bodyText1
-                    ),
-                    SizedBox(height: 8,),
-                    Text(
-                        lastMessage['time'],
-                        style: TextStyle(
-                          fontSize: 8,
-                          color: Colors.white54
-                        )
-                    ),
-                  ],
+                SizedBox(
+                  height: 8,
                 ),
-              ),
-              Text(
-                messageFormed,
-                style: Theme.of(context).textTheme.headline6,
-                overflow: TextOverflow.clip,
-              ),
-              Text(
-                stringFormed,
-                style: Theme.of(context).textTheme.headline6,
-                overflow: TextOverflow.clip,
-              ),
-      ]
-          ),
+                Text(
+                  messageFormed,
+                  style: Theme.of(context).textTheme.headline6,
+                  overflow: TextOverflow.clip,
+                ),
+                Text(
+                  stringFormed,
+                  style: Theme.of(context).textTheme.headline6,
+                  overflow: TextOverflow.clip,
+                ),
+              ]),
         ),
       ),
     );

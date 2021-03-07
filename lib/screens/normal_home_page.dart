@@ -1,144 +1,87 @@
 import 'package:flutter/material.dart';
-import './normal_chat_screen.dart';
+import 'package:pasc_event_project/screens/instruction_screen.dart';
 import './special_chat_screen.dart';
+import './normal_chat_screen.dart';
+import './instruction_screen.dart';
 
 class HomePage extends StatelessWidget {
-
   final searchValue = TextEditingController();
-  final List messages = [
-    {
-      'sender': 'name lastName 1',
-      'lastMessage':
-          'This is the last message sent to this contact by this pnone number'
-    },
-    {
-      'sender': 'name lastName 2',
-      'lastMessage':
-          'This is the last message sent to this contact b  aaaaaaaaaaaaaaaaaaaaa'
-    },
-    {
-      'sender': 'name lastName 3',
-      'lastMessage':
-          'This is the last message sent to this contact  bbbbbbbbbbbbbbbb'
-    },
-    {
-      'sender': 'name lastName 4',
-      'lastMessage': 'This is the last message sent to this contact ccccccccccc'
-    },
-    {
-      'sender': 'name lastName 5',
-      'lastMessage':
-          'This is the last message sent to this contact cccccccccccccc'
-    },
-    {
-      'sender': 'name lastName 6',
-      'lastMessage':
-          'This is the last message sent to this contact cccccccccccccc'
-    },
-    {
-      'sender': 'name lastName 7',
-      'lastMessage':
-          'This is the last message sent to this contact cccccccccccccc'
-    },
-    {
-      'sender': 'name lastName 8',
-      'lastMessage':
-          'This is the last message sent to this contactcccccccccccccc'
-    },
-    {
-      'sender': 'name lastName 5',
-      'lastMessage':
-          'This is the last message sent to this contactcccccccccccccc'
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text('CHATS'),
+        toolbarHeight: 100,
+        title: Center(child: Text('Morse-English Chat')),
         elevation: 0,
+        actions: [IconButton(icon: Icon(Icons.info), onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>InstructionScreen()))),],
       ),
-      drawer: Drawer(
-        child: Container(),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.white54,
-                  borderRadius: BorderRadius.circular(16)),
-              child: TextField(
-                autocorrect: true,
-                controller: searchValue,
-                onSubmitted: (String input) {
-                  print(input.toUpperCase());
-                },
-                style: Theme.of(context).textTheme.bodyText1,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Colors.black87,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+
+            InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SpecialChatScreen()));
+              },
+              child: Container(
+                
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      Colors.indigo[700],
+                      Colors.indigo[600],
+                      Colors.indigo[700],
+                    ],
                   ),
-                  contentPadding: EdgeInsets.all(7),
-                  border: InputBorder.none,
-                  hintText: 'Search Name',
-                  hintStyle: Theme.of(context).textTheme.caption,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.transparent),
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                  boxShadow: [BoxShadow(color: Colors.black26,offset: Offset(7,7),blurRadius: 7)],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Text(
+                    'Morse to Text',
+                    style: Theme.of(context).textTheme.subtitle2,
                   ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: messages.length == 0
-                  ? Container()
-                  : ListView.builder(
-                      itemCount: messages.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            SpecialChatScreen();
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 13.0, horizontal: 16.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Text(
-                                  messages[index]['sender'],
-                                  style: Theme.of(context).textTheme.bodyText1,
-                                ),
-                                SizedBox(
-                                  height: 3.0,
-                                ),
-                                Text(
-                                  messages[index]['lastMessage'],
-                                  style: Theme.of(context).textTheme.bodyText2,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.clip,
-                                ),
-                                Divider(
-                                  color: Theme.of(context).primaryColor,
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+            InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => NormalChatScreen()));
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      Colors.indigo[700],
+                      Colors.indigo[600],
+                      Colors.indigo[700],
+                    ],
+                  ),
+                  boxShadow: [BoxShadow(color: Colors.black26,offset: Offset(7,7),blurRadius: 7)],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Text(
+                    'Text to Morse',
+                    style: Theme.of(context).textTheme.subtitle2,
+                  ),
+                ),
+              ),
             ),
-          ),
-        ],
+
+          ],
+        ),
       ),
     );
   }

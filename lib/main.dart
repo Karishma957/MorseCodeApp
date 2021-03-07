@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import './screens/sign_up_page.dart';
 import './screens/normal_home_page.dart';
-import './screens/log_in_page.dart';
-import './screens/special_chat_screen.dart';
 
 void main(){
   runApp(MyApp());
@@ -33,6 +30,11 @@ class MyApp extends StatelessWidget {
             )),
         fontFamily: 'OpenSans',
         textTheme: TextTheme(
+          subtitle2: TextStyle(
+              fontSize: 23.0,
+              fontWeight: FontWeight.w700,
+              color: Colors.white70,
+              letterSpacing: 1.3),
           bodyText1: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.w600,
@@ -43,13 +45,13 @@ class MyApp extends StatelessWidget {
               color: Colors.white70,
               letterSpacing: 1.5),
           bodyText2: TextStyle(fontSize: 18.0, color: Colors.white54),
-          caption: TextStyle(fontSize: 18.0, color: Colors.white60),
+          caption: TextStyle(fontSize: 14.0, color: Colors.white60),
         ),
         accentColor: Color.fromRGBO(24, 48, 96, 1),
         primaryColor: Color.fromRGBO(0, 24, 48, 1),
       ),
       debugShowCheckedModeBanner: false,
-      home: SpecialChatScreen(),
+      home: HomePage(),
     );
   }
 }
